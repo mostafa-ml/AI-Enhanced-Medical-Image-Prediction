@@ -71,22 +71,22 @@ Once the server is running, you can interact with the API by making HTTP request
 **Method:** `POST`  
 **Description:** Sends an image to the specified model and gets a prediction.
 
-1. Open Postman and create a new request.
-2. Set the request type to POST:
+1. **Open Postman and create a new request.**
+2. **Set the request type to POST:**
    * Select POST from the dropdown list next to the URL bar.
-3. Enter the URL for your API endpoint:
+3. **Enter the URL for your API endpoint:**
    * For example, to send an image for the COVID-19 prediction, enter:
       ```sh
       http://127.0.0.1:8000/predict/covid19/
       ```
-4. Set the request body type to form-data:
+4. **Set the request body type to form-data:**
    * In the Postman interface, under the Body tab, select the form-data option.
    * This allows you to send the file as part of the form submission.
-5. Add the image file:
+5. **Add the image file:**
    * In the form-data section, you'll see a Key column and a Value column.
    * Set the Key to file (this matches the parameter in the FastAPI endpoint).
    * For the Value, click on the Select Files button and choose the image file you want to send.
-6. Send the request:
+6. **Send the request:**
    * Once everything is set, click the Send button.
    * You should see the response from the FastAPI server in the lower part of Postman.
 
