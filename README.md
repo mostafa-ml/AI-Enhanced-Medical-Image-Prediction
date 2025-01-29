@@ -51,9 +51,9 @@ To set up and run the API, follow these steps:
    ```
 
 ## API Usage
-Once the server is running, you can interact with the API.
+Once the server is running, you can interact with the API by making HTTP requests to the following endpoints.
 
-#### Available APIs
+#### Available Endpoints
 ```
 http://127.0.0.1:8000/predict/covid19
 ```
