@@ -32,11 +32,11 @@ To set up and run the API, follow these steps:
    ```
 
 3. **Download the models**
-   ```
+   
    The models files are too large to be uploaded to GitHub, so I’ve made them available via Google Drive.
    Download them from this [link](https://drive.google.com/drive/folders/1exyGxBjuVpFMFniDarKifTIDPFEiYZ_O?usp=sharing).
    After downloading, extract the files into a folder named models.
-   ```
+   
 
 4. **Install dependencies**
    ```sh
