@@ -1,4 +1,4 @@
-# AI-Enhanced-Medical-Image-Prediction
+# AI-Enhanced Medical Image Prediction
 
 ## Overview
 This project provides a FastAPI-based backend for medical image prediction using multiple deep learning models. The models have been trained on various medical datasets to detect conditions such as COVID-19, brain tumors, skin cancer, kidney stones, tuberculosis, bone fractures and more... To ensure efficient and stable inference, the models have been converted to the ONNX format((Open Neural Network Exchange)), making it easier to deploy them regardless of the original framework used for training.
@@ -6,11 +6,12 @@ This project provides a FastAPI-based backend for medical image prediction using
 ## Features
 - **Multiple Disease Detection**: Supports various medical conditions through different models.
 - **ONNX Model Inference**: Enables fast and stable inference independent of the original deep learning framework.
-- **FastAPI Deployment**: Provides a simple and scalable API for integrating predictions into other applications.
+- **FastAPI Deployment**: Provides a scalable and easy-to-use API for seamless integration to other applications.
 - **Easy Integration**: The API abstracts model complexities, allowing backend teams to send images and receive predictions without ML expertise.
+- **Comprehensive Documentation:**  Includes detailed instructions for setup, usage, and understanding the API's capabilities.
 
 ## Models Included
-The following models are available for inference:
+The following models are available for inference through the API:
 - **Covid-19 Model**: Classifies chest X-rays to detect COVID-19.
 - **Brain Tumor Model**: Detects brain tumors in MRI scans.
 - **Skin Cancer Model**: Detects and classifies skin lesions while segmenting cancerous regions.
@@ -33,12 +34,21 @@ To set up and run the API, follow these steps:
 
 3. **Download the models**
    
-   The models files are too large to be uploaded to GitHub, so I’ve made them available via Google Drive.
+   The models files are too large to be hosted directly on GitHub, so I’ve made them available via Google Drive.
    
    Download them from this [link](https://drive.google.com/drive/folders/1exyGxBjuVpFMFniDarKifTIDPFEiYZ_O?usp=sharing).
 
-   After downloading, extract the files into a folder named models.
-   
+   After downloading, extract the files into a directory named models within the project directory.
+   ```
+   AI-Enhanced-Medical-Image-Prediction/
+   ├── models/
+   │   ├── covid-19.onnx
+   │   ├── brain-tumor.onnx
+   │   ├── ... (other model files)
+   ├── main.py
+   ├── models.py
+   ├── ... (other files)
+   ```
 
 5. **Install dependencies**
    ```sh
@@ -47,24 +57,22 @@ To set up and run the API, follow these steps:
 
 6. **Run the FastAPI server**
    ```sh
-   uvicorn main:app --host 127.0.0.1 --port 8000
+   uvicorn main:app --host 127.0.0.1 --port 8000 --reload
    ```
 
 ## API Usage
-Once the server is running, you can interact with the API by making HTTP requests to the following endpoints.
+The API provides a consistent interface for interacting with all models.  All requests are POST requests, and image data is sent as a file upload.
 
 #### Available Endpoints
-* `GET request: http://127.0.0.1:8000/predict/covid19`
+| Endpoint                     | Description                                                                 | Method |
+|------------------------------|-----------------------------------------------------------------------------|--------|
+| `/predict/covid19/`          | Predicts COVID-19 from a chest X-ray image.                                 | `POST` |
+| `/predict/brain-tumor/`      | Detects brain tumors in an MRI scan.                                        | `POST` |
+| `/predict/kidney-stone/`     | Detects kidney stones from a medical CT or ultrasound scan.                 | `POST` |
+| `/predict/skin-cancer/`      | Predicts skin cancer type (classification) and provides segmentation.       | `POST` |
+| `/predict/tuberculosis/`     | Predicts tuberculosis from a chest X-ray image.                             | `POST` |
+| `/predict/bone-fracture/`    | Predicts bone fracture type from an X-ray image.                            | `POST` |
 
-* `GET request: http://127.0.0.1:8000/predict/brain-tumor`
-
-* `GET request: http://127.0.0.1:8000/predict/kidney-stone`
-
-* `GET request: http://127.0.0.1:8000/predict/skin-cancer`
-
-* `GET request: http://127.0.0.1:8000/predict/tuberculosis`
-
-* `GET request: http://127.0.0.1:8000/predict/bone-fracture`
 
 ### Predict an Image Through Postman
 **Endpoint:** `/predict/{model_name}`  
