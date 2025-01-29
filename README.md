@@ -63,6 +63,10 @@ To set up and run the API, follow these steps:
 ## API Usage
 The API provides a consistent interface for interacting with all models.  All requests are POST requests, and image data is sent as a file upload.
 
+#### URL = Base URL + Endpoint
+   **Base URL:** `http://127.0.0.1:8000`
+   **Endpoint:** `/predict/{model_name}`
+
 #### Available Endpoints
 | Endpoint                     | Description                                                                 | Method |
 |------------------------------|-----------------------------------------------------------------------------|--------|
@@ -74,15 +78,13 @@ The API provides a consistent interface for interacting with all models.  All re
 | `/predict/bone-fracture/`    | Predicts bone fracture type from an X-ray image.                            | `POST` |
 
 
-### Predict an Image Through Postman
-**Endpoint:** `/predict/{model_name}`  
-**Method:** `POST`  
-**Description:** Sends an image to the specified model and gets a prediction.
+## Making Requests with Postman
+Sends an image to the specified model and gets a prediction.
 
 1. **Open Postman and create a new request.**
 2. **Set the request type to POST:**
    * Select POST from the dropdown list next to the URL bar.
-3. **Enter the URL for your API endpoint:**
+3. **Enter the URL:**
    * For example, to send an image for the COVID-19 prediction, enter:
       ```sh
       http://127.0.0.1:8000/predict/covid19/
