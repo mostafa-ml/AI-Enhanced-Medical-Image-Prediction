@@ -65,6 +65,7 @@ The API provides a consistent interface for interacting with all models.  All re
 
 #### URL = Base URL + Endpoint
    **Base URL:** `http://127.0.0.1:8000`
+   
    **Endpoint:** `/predict/{model_name}`
 
 #### Available Endpoints
