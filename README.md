@@ -82,30 +82,38 @@ The API provides a consistent interface for interacting with all models.  All re
 **For detailed information on each endpoint's request and response formats, please refer to the interactive API documentation (Swagger UI) at http://127.0.0.1:8000/docs once the API is running.**
 
 ## Making Requests with Postman
-Sends an image to the specified model and gets a prediction.
+How to use Postman to send image data to the API and receive predictions.
 
 1. **Open Postman and create a new request.**
-2. **Set the request type to POST:**
+   * Open Postman and click the "+" button to create a new request tab.
+3. **Set the request type to POST:**
    * Select POST from the dropdown list next to the URL bar.
-3. **Enter the URL:**
+4. **Enter the URL:**
+   * Enter the full URL for the desired model endpoint.
    * For example, to send an image for the COVID-19 prediction, enter:
       ```sh
       http://127.0.0.1:8000/predict/covid19/
       ```
-4. **Set the request body type to form-data:**
+6. **Set the request body type to form-data:**
    * In the Postman interface, under the Body tab, select the form-data option.
    * This allows you to send the file as part of the form submission.
-5. **Add the image file:**
+7. **Add the image file:**
    * In the form-data section, you'll see a Key column and a Value column.
    * Set the Key to file (this matches the parameter in the FastAPI endpoint).
    * For the Value, click on the Select Files button and choose the image file you want to send.
-6. **Send the request:**
+8. **Send the request:**
    * Once everything is set, click the Send button.
    * You should see the response from the FastAPI server in the lower part of Postman.
+9. **Examine the Response:**
+   * The response from the API will be displayed in the lower pane of the Postman window.
+   * The response will be a JSON object containing the prediction results.
+   * Refer to the API documentation (Swagger UI at `http://127.0.0.1:8000/docs`) for the specific structure of the JSON response for each model.
+   * The response typically includes the predicted class, confidence scores (for classification models), and/or a base64 encoded image with detected regions highlighted (for segmentation/detection models).
 
-### see this image: 
 
-![image](https://github.com/user-attachments/assets/fd5b1639-c08c-4599-a69f-d89f029f3b01)
+### See this image: 
+
+![Postman Example](https://github.com/user-attachments/assets/fd5b1639-c08c-4599-a69f-d89f029f3b01)
 
 
 ## License
