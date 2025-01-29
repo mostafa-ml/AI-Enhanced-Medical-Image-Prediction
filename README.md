@@ -79,6 +79,8 @@ The API provides a consistent interface for interacting with all models.  All re
 | `/predict/bone-fracture/`    | Predicts bone fracture type from an X-ray image.                            | `POST` |
 
 
+**For detailed information on each endpoint's request and response formats, please refer to the interactive API documentation (Swagger UI) at http://127.0.0.1:8000/docs once the API is running.**
+
 ## Making Requests with Postman
 Sends an image to the specified model and gets a prediction.
 
