@@ -63,7 +63,7 @@ Once the server is running, you can interact with the API.
 curl -X 'POST' \
   'http://localhost:8000/predict/Covid19Model' \
   -H 'Content-Type: multipart/form-data' \
-  -F 'file=@chest_xray.jpg'
+  -F 'file=@test images\Covid19\COVID-1024.png'
 ```
 
 #### Response:
