@@ -26,24 +26,24 @@ To set up and run the API, follow these steps:
    git clone https://github.com/mostafa-ml/AI-Enhanced-Medical-Image-Prediction
    ```
 
-1. **Navigate to the Project Directory**
+2. **Navigate to the Project Directory**
    ```sh
    cd AI-Enhanced-Medical-Image-Prediction
    ```
 
-2. **Download the models**
-   ```sh
+3. **Download the models**
+   ```
    The models files are too large to be uploaded to GitHub, so I’ve made them available via Google Drive.
    Download them from this [link](https://drive.google.com/drive/folders/1exyGxBjuVpFMFniDarKifTIDPFEiYZ_O?usp=sharing).
    After downloading, extract the files into a folder named models.
    ```
 
-3. **Install dependencies**
+4. **Install dependencies**
    ```sh
    pip install -r requirements.txt
    ```
 
-4. **Run the FastAPI server**
+5. **Run the FastAPI server**
    ```sh
    uvicorn main:app --host 0.0.0.0 --port 8000
    ```
