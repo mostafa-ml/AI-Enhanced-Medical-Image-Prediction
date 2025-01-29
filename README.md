@@ -53,7 +53,20 @@ To set up and run the API, follow these steps:
 ## API Usage
 Once the server is running, you can interact with the API.
 
-### 1. Predict an Image
+#### Available APIs
+* http://127.0.0.1:8000/predict/covid19
+
+http://127.0.0.1:8000/predict/brain-tumor
+
+http://127.0.0.1:8000/predict/kidney-stone
+
+http://127.0.0.1:8000/predict/skin-cancer
+
+http://127.0.0.1:8000/predict/tuberculosis/
+
+http://127.0.0.1:8000/predict/bone-fracture/
+
+### Predict an Image
 **Endpoint:** `/predict/{model_name}`  
 **Method:** `POST`  
 **Description:** Sends an image to the specified model and gets a prediction.
@@ -68,30 +81,6 @@ curl -X POST "http://127.0.0.1:8000/predict/covid19/" -H "Content-Type: multipar
 {
   "predicted_class": "COVID",
   "confidence": 99.99
-}
-```
-
-### 2. List Available Models
-**Endpoint:** `/models`
-**Method:** `GET`
-
-#### Request:
-```sh
-curl -X 'GET' 'http://localhost:8000/models'
-```
-
-#### Response:
-```json
-{
-  "available_models": [
-    "Covid19Model",
-    "BrainTumorModel",
-    "SkinCancerSegmentationModel",
-    "SkinCancerClassificationModel",
-    "KidneyStoneModel",
-    "TuberculosisModel",
-    "BoneFractureModel"
-  ]
 }
 ```
 
