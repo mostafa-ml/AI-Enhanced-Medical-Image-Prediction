@@ -44,7 +44,7 @@ To set up and run the API, follow these steps:
    ├── models/
    │   ├── covid-19.onnx
    │   ├── brain-tumor.onnx
-   │   ├── ... (other model files)
+   │   ├── ... (other models files)
    ├── main.py
    ├── models.py
    ├── ... (other files)
