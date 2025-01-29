@@ -47,7 +47,7 @@ To set up and run the API, follow these steps:
 
 6. **Run the FastAPI server**
    ```sh
-   uvicorn main:app --host 0.0.0.0 --port 8000
+   uvicorn main:app --host 127.0.0.1 --port 8000
    ```
 
 ## API Usage
