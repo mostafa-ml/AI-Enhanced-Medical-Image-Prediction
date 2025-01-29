@@ -67,7 +67,7 @@ curl -X POST "http://127.0.0.1:8000/predict/covid19/" -H "Content-Type: multipar
 ```json
 {
   "predicted_class": "COVID",
-  "confidence": 98.75
+  "confidence": 99.99
 }
 ```
 
