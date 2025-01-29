@@ -62,33 +62,33 @@ Once the server is running, you can interact with the API by making HTTP request
 
 * Brain Tumor Prediction
 
-`GET request:`
+   `GET request:`
 
-http://127.0.0.1:8000/predict/brain-tumor
+   http://127.0.0.1:8000/predict/brain-tumor
 
 * Kidney Stone Prediction
 
-`GET request:`
+   `GET request:`
 
-http://127.0.0.1:8000/predict/kidney-stone
+   http://127.0.0.1:8000/predict/kidney-stone
 
 * Skin Cancer Prediction
 
-`GET request:`
+   `GET request:`
 
-http://127.0.0.1:8000/predict/skin-cancer
+   http://127.0.0.1:8000/predict/skin-cancer
 
 * Tuberculosis Prediction
 
-`GET request:`
+   `GET request:`
 
-http://127.0.0.1:8000/predict/tuberculosis
+   http://127.0.0.1:8000/predict/tuberculosis
 
 * Bone Fracture Prediction
 
-`GET request:`
+   `GET request:`
 
-http://127.0.0.1:8000/predict/bone-fracture
+   http://127.0.0.1:8000/predict/bone-fracture
 
 ### Predict an Image
 **Endpoint:** `/predict/{model_name}`  
