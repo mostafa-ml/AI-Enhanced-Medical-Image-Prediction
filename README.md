@@ -101,7 +101,9 @@ Sends an image to the specified model and gets a prediction.
    * Once everything is set, click the Send button.
    * You should see the response from the FastAPI server in the lower part of Postman.
 
-#### see this image: ![image](https://github.com/user-attachments/assets/fd5b1639-c08c-4599-a69f-d89f029f3b01)
+### see this image: 
+
+![image](https://github.com/user-attachments/assets/fd5b1639-c08c-4599-a69f-d89f029f3b01)
 
 
 ## License
