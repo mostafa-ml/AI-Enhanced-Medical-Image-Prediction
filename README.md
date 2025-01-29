@@ -54,9 +54,9 @@ To set up and run the API, follow these steps:
 Once the server is running, you can interact with the API.
 
 #### Available APIs
-`http://127.0.0.1:8000/predict/covid19`
+``http://127.0.0.1:8000/predict/covid19``
 
-`http://127.0.0.1:8000/predict/brain-tumor`
+```http://127.0.0.1:8000/predict/brain-tumor```
 
 `http://127.0.0.1:8000/predict/kidney-stone`
 
