@@ -55,27 +55,27 @@ Once the server is running, you can interact with the API by making HTTP request
 
 #### Available Endpoints
 * COVID-19 Prediction
-GET request:
+`GET request:`
 http://127.0.0.1:8000/predict/covid19
 
 * Brain Tumor Prediction
-GET request:
+`GET request:`
 http://127.0.0.1:8000/predict/brain-tumor
 
 * Kidney Stone Prediction
-GET request:
+`GET request:`
 http://127.0.0.1:8000/predict/kidney-stone
 
 * Skin Cancer Prediction
-GET request:
+`GET request:`
 http://127.0.0.1:8000/predict/skin-cancer
 
 * Tuberculosis Prediction
-GET request:
+`GET request:`
 http://127.0.0.1:8000/predict/tuberculosis
 
 * Bone Fracture Prediction
-GET request:
+`GET request:`
 http://127.0.0.1:8000/predict/bone-fracture
 
 ### Predict an Image
