@@ -23,7 +23,7 @@ To set up and run the API, follow these steps:
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/AI-Enhanced-Medical-Image-Prediction
+   git clone https://github.com/mostafa-ml/AI-Enhanced-Medical-Image-Prediction
    cd AI-Enhanced-Medical-Image-Prediction
    ```
 2. **Download the models**
