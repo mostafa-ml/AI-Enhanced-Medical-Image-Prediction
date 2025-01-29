@@ -60,10 +60,7 @@ Once the server is running, you can interact with the API.
 
 #### Request:
 ```sh
-curl -X 'POST' \
-  'http://127.0.0.1:8000/predict/covid19/' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@test images\Covid19\COVID-1024.png'
+curl -X 'POST' 'http://127.0.0.1:8000/predict/covid19/' -H 'Content-Type: multipart/form-data' -F 'file=@test images\Covid19\COVID-1024.png'
 ```
 
 #### Response:
