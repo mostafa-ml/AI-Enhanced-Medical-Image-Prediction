@@ -54,29 +54,29 @@ To set up and run the API, follow these steps:
 Once the server is running, you can interact with the API by making HTTP requests to the following endpoints.
 
 #### Available Endpoints
-```
+* COVID-19 Prediction
+GET request:
 http://127.0.0.1:8000/predict/covid19
-```
 
-```
+* Brain Tumor Prediction
+GET request:
 http://127.0.0.1:8000/predict/brain-tumor
-```
 
-```
+* Kidney Stone Prediction
+GET request:
 http://127.0.0.1:8000/predict/kidney-stone
-```
 
-```
+* Skin Cancer Prediction
+GET request:
 http://127.0.0.1:8000/predict/skin-cancer
-```
 
-```
-http://127.0.0.1:8000/predict/tuberculosis/
-```
+* Tuberculosis Prediction
+GET request:
+http://127.0.0.1:8000/predict/tuberculosis
 
-```
-http://127.0.0.1:8000/predict/bone-fracture/
-```
+* Bone Fracture Prediction
+GET request:
+http://127.0.0.1:8000/predict/bone-fracture
 
 ### Predict an Image
 **Endpoint:** `/predict/{model_name}`  
