@@ -1,7 +1,7 @@
 # AI-Enhanced Medical Image Prediction
 
 ## Overview
-This project provides a FastAPI-based backend for medical image prediction using multiple deep learning models. The models have been trained on various medical datasets to detect conditions such as COVID-19, brain tumors, skin cancer, kidney stones, tuberculosis, bone fractures and more... To ensure efficient and stable inference, the models have been converted to the ONNX format((Open Neural Network Exchange)), making it easier to deploy them regardless of the original framework used for training.
+This project provides a FastAPI-based backend for medical image prediction using multiple deep learning models. The models have been trained on various medical datasets to detect conditions such as COVID-19, brain tumors, skin cancer, kidney stones, tuberculosis, bone fractures and more... To ensure efficient and stable inference, the models have been converted to the ONNX format (Open Neural Network Exchange), making it easier to deploy them regardless of the original framework used for training.
 
 ## Features
 - **Multiple Disease Detection**: Supports various medical conditions through different models.
