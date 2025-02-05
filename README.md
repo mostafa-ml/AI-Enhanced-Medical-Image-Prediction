@@ -38,7 +38,7 @@ To set up and run the API, follow these steps:
    
    Download them from this [link](https://drive.google.com/drive/folders/1exyGxBjuVpFMFniDarKifTIDPFEiYZ_O?usp=sharing).
 
-   After downloading, extract the files into a directory named models within the project directory.
+   After downloading, extract the files into a directory named `models` within the project directory.
    ```
    AI-Enhanced-Medical-Image-Prediction/
    ├── models/
