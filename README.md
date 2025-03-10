@@ -32,30 +32,12 @@ To set up and run the API, follow these steps:
    cd AI-Enhanced-Medical-Image-Prediction
    ```
 
-3. **Download the models**
-   
-   The models files are too large to be hosted directly on GitHub, so I’ve made them available via Google Drive.
-   
-   Download them from this [link](https://drive.google.com/drive/folders/1exyGxBjuVpFMFniDarKifTIDPFEiYZ_O?usp=sharing).
-
-   After downloading, extract the files into a directory named `models` within the project directory.
-   ```
-   AI-Enhanced-Medical-Image-Prediction/
-   ├── models/
-   │   ├── covid-19.onnx
-   │   ├── brain-tumor.onnx
-   │   ├── ... (other models files)
-   ├── main.py
-   ├── models.py
-   ├── ... (other files)
-   ```
-
-5. **Install dependencies**
+3. **Install dependencies**
    ```sh
    pip install -r requirements.txt
    ```
 
-6. **Run the FastAPI server**
+4. **Run the FastAPI server**
    ```sh
    uvicorn main:app --host 127.0.0.1 --port 8000 --reload
    ```
@@ -82,29 +64,29 @@ The API provides a consistent interface for interacting with all models.  All re
 **For detailed information on each endpoint's request and response formats, please refer to the interactive API documentation (Swagger UI) at http://127.0.0.1:8000/docs once the API is running.**
 
 ## Making Requests with Postman
-How to use Postman to send image data to the API and receive predictions.
+How to use Postman to send data to the API and receive predictions.
 
 1. **Open Postman and create a new request.**
    * Open Postman and click the "+" button to create a new request tab.
-3. **Set the request type to POST:**
+2. **Set the request type to POST:**
    * Select POST from the dropdown list next to the URL bar.
-4. **Enter the URL:**
+3. **Enter the URL:**
    * Enter the full URL for the desired model endpoint.
    * For example, to send an image for the COVID-19 prediction, enter:
       ```sh
       http://127.0.0.1:8000/predict/covid19/
       ```
-6. **Set the request body type to form-data:**
+4. **Set the request body type to form-data:**
    * In the Postman interface, under the Body tab, select the form-data option.
    * This allows you to send the file as part of the form submission.
-7. **Add the image file:**
+5. **Add the image file:**
    * In the form-data section, you'll see a Key column and a Value column.
    * Set the Key to file (this matches the parameter in the FastAPI endpoint).
    * For the Value, click on the Select Files button and choose the image file you want to send.
-8. **Send the request:**
+6. **Send the request:**
    * Once everything is set, click the Send button.
    * You should see the response from the FastAPI server in the lower part of Postman.
-9. **Examine the Response:**
+7. **Examine the Response:**
    * The response from the API will be displayed in the lower pane of the Postman window.
    * The response will be a JSON object containing the prediction results.
    * Refer to the API documentation (Swagger UI at `http://127.0.0.1:8000/docs`) for the specific structure of the JSON response for each model.
