@@ -1,9 +1,11 @@
 from typing import Dict, Any
 from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.responses import StreamingResponse
 import io
 from models import BaseModel, Covid19Model, BrainTumorModel,KidneyStoneModel, SkinCancerModel, \
 TuberculosisModel, BoneFractureModel, AlzheimerModel, EyeDiseasesModel, DentalModel
 from prescription import predict
+from chatbot import MedicalChatbot
 
 app = FastAPI()
 
@@ -84,6 +86,12 @@ async def predict_dental(file: UploadFile = File(...)) -> Dict[str, Any]:
         return {**res}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/chat/")
+async def chat(prompt: str):
+    """Endpoint to interact with the chatbot."""
+    chatbot = MedicalChatbot()
+    return StreamingResponse(chatbot.get_chat_response(prompt), media_type="text/plain")
 
 # Root endpoint
 @app.get('/')
