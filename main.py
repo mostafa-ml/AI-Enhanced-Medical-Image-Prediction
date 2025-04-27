@@ -97,7 +97,7 @@ async def chat(prompt: str):
 @app.get('/')
 def read_root():
     """Root endpoint to check if the API is running."""
-    return {"message": "ONNX Models API is running!"}
+    return {"message": "API is running ✅"}
 
 # Run the app
 if __name__ == "__main__":

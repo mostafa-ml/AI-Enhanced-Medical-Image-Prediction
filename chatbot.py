@@ -5,7 +5,7 @@ import os
 
 
 class MedicalChatbot:
-    def __init__(self, api_key=None, model_name="llama3-70b-8192", temperature=0.7, max_chat_history_length=4, vec_db_path="../vec_db"):
+    def __init__(self, api_key=None, model_name="llama3-70b-8192", temperature=0.7, max_chat_history_length=4, vec_db_path="vec_db"):
         self.client = Groq(api_key="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") # api_key or os.getenv("GROQ_API_KEY")
         self.model_name = model_name
         self.temperature = temperature
@@ -83,13 +83,7 @@ class MedicalChatbot:
         self.chat_history = []
 
 
-# chatbot = MedicalChatbot(
-#     api_key="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",
-#     model_name="llama3-70b-8192",
-#     temperature=0.7,
-#     max_chat_history_length=4,
-#     vec_db_path="/vec_db"
-# )
+# chatbot = MedicalChatbot()
 
 # for chunk in chatbot.get_chat_response("What is the symptoms of Alzheimer disease?"):
 #     print(chunk, end='')
