@@ -6,6 +6,7 @@ from models import BaseModel, Covid19Model, BrainTumorModel,KidneyStoneModel, Sk
 TuberculosisModel, BoneFractureModel, AlzheimerModel, EyeDiseasesModel, DentalModel
 from prescription import predict
 from chatbot import MedicalChatbot
+import os
 
 app = FastAPI()
 
@@ -92,6 +93,31 @@ async def chat(prompt: str):
     """Endpoint to interact with the chatbot."""
     chatbot = MedicalChatbot()
     return StreamingResponse(chatbot.get_chat_response(prompt), media_type="text/plain")
+
+@app.get('/test-models')
+async def test_models():
+    """Test endpoint to check model paths and files."""
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        models_dir = os.path.join(base_dir, "models")
+        
+        result = {
+            "cwd": os.getcwd(),
+            "base_dir": base_dir,
+            "models_dir": models_dir,
+            "models_dir_exists": os.path.exists(models_dir),
+        }
+        
+        if os.path.exists(models_dir):
+            result["models_files"] = os.listdir(models_dir)
+            
+        covid_model_path = os.path.join(models_dir, "covid-19.onnx")
+        result["covid_model_path"] = covid_model_path
+        result["covid_model_exists"] = os.path.exists(covid_model_path)
+        
+        return result
+    except Exception as e:
+        return {"error": str(e)}
 
 # Root endpoint
 @app.get('/')
