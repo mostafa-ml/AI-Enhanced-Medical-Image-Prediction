@@ -16,6 +16,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy only the necessary application files (assuming your app is in the current directory)
 COPY . .
 
+# Explicitly ensure models directory exists and has the right permissions
+RUN mkdir -p /app/models
+COPY models/ /app/models/
+RUN chmod -R 755 /app/models/
+
 # Expose the port your app will run on
 EXPOSE 8000
 
