@@ -7,8 +7,10 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
+import logging
 
-MODELS_DIR = r"models"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.join(BASE_DIR, "models")
 MODELS_PATHS: Dict[str, str] = {
     "Covid19Model": os.path.join(MODELS_DIR, "covid-19.onnx"),
     "BrainTumorModel": os.path.join(MODELS_DIR, "brain-tumor.onnx"),
@@ -23,9 +25,38 @@ MODELS_PATHS: Dict[str, str] = {
     "Dental": os.path.join(MODELS_DIR, "dental_best_model.pt")
 }
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 class BaseModel:
     def __init__(self, model_path: str):
-        self.model = ort.InferenceSession(model_path)
+        # self.model = ort.InferenceSession(model_path)
+        # new code with logging
+        try:
+            logger.info(f"Loading model from: {model_path}")
+            logger.info(f"Model file exists: {os.path.exists(model_path)}")
+            
+            # Add provider options and session options for better compatibility
+            providers = ['CPUExecutionProvider']
+            session_options = ort.SessionOptions()
+            session_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+            
+            self.model = ort.InferenceSession(model_path, providers=providers, sess_options=session_options)
+            logger.info("Model loaded successfully")
+        except Exception as e:
+            logger.error(f"Error loading model: {e}")
+            # List directory contents to help debug
+            logger.info(f"Current directory: {os.getcwd()}")
+            logger.info(f"Base directory: {BASE_DIR}")
+            if os.path.exists(MODELS_DIR):
+                logger.info(f"Models directory contents: {os.listdir(MODELS_DIR)}")
+            else:
+                logger.info(f"Models directory not found: {MODELS_DIR}")
+            raise
+
+    # Rest of your code remains the same
+        # new code with logging
 
     def preprocess(self, img_file) -> np.ndarray:
         """Preprocess the input image."""
