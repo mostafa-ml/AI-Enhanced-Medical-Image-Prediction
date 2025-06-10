@@ -3,7 +3,7 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import StreamingResponse
 import io
 from models import BaseModel, Covid19Model, BrainTumorModel,KidneyStoneModel, SkinCancerModel, \
-TuberculosisModel, BoneFractureModel, AlzheimerModel, EyeDiseasesModel, DentalModel
+TuberculosisModel, AlzheimerModel, DentalModel, EyeDiseasesModel, ColonDiseasesModel, OralDiseasesModel
 from prescription import predict
 from chatbot import MedicalChatbot
 import os
@@ -47,11 +47,6 @@ async def predict_tuberculosis(file: UploadFile = File(...)) -> Dict[str, Any]:
     """Endpoint specifically for Tuberculosis predictions."""
     return await predict_helper(file, TuberculosisModel())
 
-@app.post("/predict/bone-fracture/")
-async def predict_bone_fracture(file: UploadFile = File(...)) -> Dict[str, Any]:
-    """Endpoint specifically for Bone Fracture predictions."""
-    return await predict_helper(file, BoneFractureModel())
-
 @app.post("/predict/alzheimer/")
 async def predict_alzheimer(file: UploadFile = File(...)) -> Dict[str, Any]:
     """Endpoint specifically for Alzheimer predictions."""
@@ -62,18 +57,15 @@ async def predict_eye_diseases(file: UploadFile = File(...)) -> Dict[str, Any]:
     """Endpoint specifically for Eye Diseases predictions."""
     return await predict_helper(file, EyeDiseasesModel())
 
-@app.post("/predict/prescription/")
-async def predict_prescription(file: UploadFile = File(...)) -> Dict[str, Any]:
-    """Endpoint specifically for prescription predictions."""
-    try:
-        contents = await file.read()
-        img = io.BytesIO(contents)
+@app.post("/predict/colon-diseases/")
+async def predict_colon_diseases(file: UploadFile = File(...)) -> Dict[str, Any]:
+    """Endpoint specifically for Colon Diseases predictions."""
+    return await predict_helper(file, ColonDiseasesModel())
 
-        res = predict(img)
-
-        return {**res}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@app.post("/predict/oral-diseases/")
+async def predict_oral_diseases(file: UploadFile = File(...)) -> Dict[str, Any]:
+    """Endpoint specifically for Oral Diseases predictions."""
+    return await predict_helper(file, OralDiseasesModel())
 
 @app.post("/predict/dental/")
 async def predict_dental(file: UploadFile = File(...)) -> Dict[str, Any]:
@@ -83,6 +75,19 @@ async def predict_dental(file: UploadFile = File(...)) -> Dict[str, Any]:
         img = io.BytesIO(contents)
 
         res = DentalModel(img)
+
+        return {**res}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/predict/prescription/")
+async def predict_prescription(file: UploadFile = File(...)) -> Dict[str, Any]:
+    """Endpoint specifically for prescription predictions."""
+    try:
+        contents = await file.read()
+        img = io.BytesIO(contents)
+
+        res = predict(img)
 
         return {**res}
     except Exception as e:
@@ -126,9 +131,9 @@ def read_root():
     return {"message": "API is running ✅"}
 
 # Run the app
-# if __name__ == "__main__":
-#     import uvicorn
-#     import os
+if __name__ == "__main__":
+    import uvicorn
+    import os
 
-#     port = int(os.environ.get("PORT", 8000))
-#     uvicorn.run(app, host="0.0.0.0", port=port)  # 127.0.0.1  8000
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="127.0.0.1", port=port)  # 127.0.0.1  8000

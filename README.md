@@ -21,7 +21,12 @@ The following models are available for inference through the API:
 - **Skin Cancer Model**: Detects and classifies skin lesions while segmenting cancerous regions.
 - **Kidney Stone Model**: Detects kidney stones from medical CT scans.
 - **Tuberculosis Model**: Identifies tuberculosis from chest X-rays.
-- **Bone Fracture Model**: Detects bone fractures from X-ray images.
+- **Alzheimer Model**: Classifies brain MRI scans to detect the presence of Alzheimer’s disease at various stages.
+- **Eye Diseases Model**: Detect Eye diseases from from retinal fundus images.
+- **Colon Diseases Model**: Detects Colon diseases from Wireless Capsule Endoscopy (WCE) images.
+- **Oral Diseases Model**: Detect Oral diseases from intraoral images.
+- **Dental Anatomy Model**: Detects and classifies individual teeth from teeth images, labeling them according to dental anatomy.
+- **Prescription Reader Model**: Extracts and recognizes medicine names from handwritten/printed medical prescriptions.
 
 ## Installation
 
@@ -64,14 +69,20 @@ The API provides a consistent interface for interacting with all models. All req
 
 #### Available Endpoints
 
-| Endpoint                  | Description                                                           | Method |
-| ------------------------- | --------------------------------------------------------------------- | ------ |
-| `/predict/covid19/`       | Predicts COVID-19 from a chest X-ray image.                           | `POST` |
-| `/predict/brain-tumor/`   | Detects brain tumors in an MRI scan.                                  | `POST` |
-| `/predict/kidney-stone/`  | Detects kidney stones from a medical CT or ultrasound scan.           | `POST` |
-| `/predict/skin-cancer/`   | Predicts skin cancer type (classification) and provides segmentation. | `POST` |
-| `/predict/tuberculosis/`  | Predicts tuberculosis from a chest X-ray image.                       | `POST` |
-| `/predict/bone-fracture/` | Predicts bone fracture type from an X-ray image.                      | `POST` |
+| Endpoint                    | Method |
+| --------------------------- | ------ |
+| `/predict/covid19/`         | `POST` |
+| `/predict/brain-tumor/`     | `POST` |
+| `/predict/skin-cancer/`     | `POST` |
+| `/predict/kidney-stone/`    | `POST` |
+| `/predict/tuberculosis/`    | `POST` |
+| `/predict/alzheimer/`       | `POST` |
+| `/predict/eye-diseases/`    | `POST` |
+| `/predict/colon-diseases/`  | `POST` |
+| `/predict/oral-diseases/`   | `POST` |
+| `/predict/dental/`          | `POST` |
+| `/predict/prescription/`    | `POST` |
+| `/chat/`                    | `POST` |
 
 **For detailed information on each endpoint's request and response formats, please refer to the interactive API documentation (Swagger UI) at http://127.0.0.1:8000/docs once the API is running.**
 

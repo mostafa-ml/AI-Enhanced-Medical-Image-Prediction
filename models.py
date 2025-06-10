@@ -2,6 +2,7 @@ from typing import Dict, Any
 import numpy as np
 import onnxruntime as ort
 from ultralytics import YOLO
+from tensorflow.keras.applications.mobilenet_v3 import preprocess_input
 from PIL import Image, ImageDraw, ImageFont
 import matplotlib.pyplot as plt
 import io
@@ -18,11 +19,11 @@ MODELS_PATHS: Dict[str, str] = {
     "SkinCancerClassificationModel": os.path.join(MODELS_DIR, "skin-cancer-classification.onnx"),
     "KidneyStoneModel": os.path.join(MODELS_DIR, "kidney-stone.onnx"),
     "TuberculosisModel": os.path.join(MODELS_DIR, "tuberculosis.onnx"),
-    "BoneFractureModel": os.path.join(MODELS_DIR, "bone_fracture.onnx"),
     "AlzheimerModel": os.path.join(MODELS_DIR, "alzheimer.onnx"),
-    "EyeDiseases": os.path.join(MODELS_DIR, "eye_diseases.onnx"),
-    "Lumbar": os.path.join(MODELS_DIR, "Lumbar.onnx"),
-    "Dental": os.path.join(MODELS_DIR, "dental_best_model.pt")
+    "EyeDiseasesModel": os.path.join(MODELS_DIR, "eye_diseases.onnx"),
+    "ColonDiseasesModel": os.path.join(MODELS_DIR, "colon_diseases.onnx"),
+    "OralDiseasesModel": os.path.join(MODELS_DIR, "oral_diseases.onnx"),
+    "Dental": os.path.join(MODELS_DIR, "dental_best_model.pt"),
 }
 
 # Set up logging
@@ -32,7 +33,6 @@ logger = logging.getLogger(__name__)
 class BaseModel:
     def __init__(self, model_path: str):
         # self.model = ort.InferenceSession(model_path)
-        # new code with logging
         try:
             logger.info(f"Loading model from: {model_path}")
             logger.info(f"Model file exists: {os.path.exists(model_path)}")
@@ -54,9 +54,6 @@ class BaseModel:
             else:
                 logger.info(f"Models directory not found: {MODELS_DIR}")
             raise
-
-    # Rest of your code remains the same
-        # new code with logging
 
     def preprocess(self, img_file) -> np.ndarray:
         """Preprocess the input image."""
@@ -289,7 +286,7 @@ class TuberculosisModel(BaseModel):
         super().__init__(MODELS_PATHS["TuberculosisModel"])
 
     def preprocess(self, img_file) -> np.ndarray:
-        """Preprocess an image for the Tuberculosis Classification model."""
+        """Preprocess an image for the Tuberculosis model."""
         img = Image.open(img_file)
         img = img.convert('RGB')
         img = img.resize((224, 224))
@@ -307,27 +304,6 @@ class TuberculosisModel(BaseModel):
         else:
             confidence = int((1 - pred[0][0][0]) * 100_00) / 100
         return {'predicted_class': class_names[int(pred_cls)], 'confidence': confidence}
-
-class BoneFractureModel(BaseModel):
-    def __init__(self):
-        super().__init__(MODELS_PATHS["BoneFractureModel"])
-
-    def preprocess(self, img_file) -> np.ndarray:
-        """Preprocess an image for the Tuberculosis Classification model."""
-        img = Image.open(img_file)
-        img = img.convert('RGB')
-        img = img.resize((96, 96))
-        img = np.array(img,dtype=np.float32) / 255.0
-        img = np.expand_dims(img, axis=0)   # Add batch dimension [None, 224, 224, 3]
-        return img
-
-    def postprocess(self, pred: np.ndarray) -> Dict[str, Any]:
-        class_names = ["Elbow Positive", "Fingers Positive", "Forearm Fracture", "Humerus Fracture", "Shoulder Fracture", "Wrist Positive"]
-
-        pred_cls = np.argmax(pred[0], axis=1)[0]
-        confidence = int(np.max(pred[0], axis=1)[0] * 100_00) / 100
-
-        return {'predicted_class': class_names[pred_cls], 'confidence': confidence}
 
 class AlzheimerModel(BaseModel):
     def __init__(self):
@@ -351,73 +327,65 @@ class AlzheimerModel(BaseModel):
 
 class EyeDiseasesModel(BaseModel):
     def __init__(self):
-        super().__init__(MODELS_PATHS["EyeDiseases"])
+        super().__init__(MODELS_PATHS["EyeDiseasesModel"])
 
     def preprocess(self, img_file) -> np.ndarray:
         """Preprocess an image for the Eye Diseases Model."""
         img = Image.open(img_file)
         img = img.convert("RGB")
-        img = img.resize((224, 224))
-        img = np.array(img, dtype=np.float32) / 255.0
-        img = np.expand_dims(img, axis=0)   # Add batch dimension [None, 224, 224, 3]
+        img = img.resize([224, 224])  # [224, 224, 3]
+        img = np.array(img, dtype=np.float32)
+        img = np.expand_dims(img, axis=0)  # [1, 224, 224, 3]
+        
+        img = preprocess_input(img).astype(np.float32)
+        
         return img
 
     def postprocess(self, pred: np.ndarray) -> Dict[str, Any]:
         """Postprocess predictions."""
-        class_names = {0: 'Choroidal Neovascularization (CNV)', 1: 'Diabetic Macular Edema (DME)', 2: 'DRUSEN', 3: 'NORMAL'}
+        class_names = ['Choroidal Neovascularization (CNV)', 'Diabetic Macular Edema (DME)', 'DRUSEN', 'NORMAL']
+
+        pred_cls = class_names[pred[0].argmax()]
+        confidence = int(pred[0].max() * 100_00) / 100
+
+        return {"predicted_class": pred_cls, "confidence": confidence}
+
+class ColonDiseasesModel(BaseModel):
+    def __init__(self):
+        super().__init__(MODELS_PATHS["ColonDiseasesModel"])
+
+    def preprocess(self, img_file) -> np.ndarray:
+        """Preprocess an image for the Colon Diseases model."""
+        img = Image.open(img_file)
+        img = img.convert("RGB")
+        img = img.resize((256, 256))
+        img = np.array(img, dtype=np.float32) / 255.0
+        img = np.expand_dims(img, axis=0)   # Add batch dimension [None, 256, 256, 3]
+        return img
+
+    def postprocess(self, pred: np.ndarray) -> Dict[str, Any]:
+        """Postprocess predictions."""
+        class_names = ["Normal", "Ulcerative Colitis", "Polyps", "Esophagitis"]
         pred_class = np.argmax(pred[0], axis=1)[0]
         confidence = int(np.max(pred[0], axis=1)[0] * 100_00) / 100
         return {"predicted_class": class_names[pred_class], "confidence": confidence}
 
-class KneeOsteoarthritisModel(BaseModel):
+class OralDiseasesModel(BaseModel):
     def __init__(self):
-        super().__init__(MODELS_PATHS["KneeOsteoarthritis"])
+        super().__init__(MODELS_PATHS["OralDiseasesModel"])
 
     def preprocess(self, img_file) -> np.ndarray:
-        """Preprocess an image for the Knee Osteoarthritis Model."""
+        """Preprocess an image for the Oral Diseases model."""
         img = Image.open(img_file)
         img = img.convert("RGB")
-        img = img.resize((224, 224))
+        img = img.resize((299, 299))
         img = np.array(img, dtype=np.float32) / 255.0
-        img = img.reshape([3, 224, 224])
-        img = np.expand_dims(img, axis=0)   # Add batch dimension [None, 3, 224, 224]
+        img = np.expand_dims(img, axis=0)   # Add batch dimension [None, 299, 299, 3]
         return img
 
     def postprocess(self, pred: np.ndarray) -> Dict[str, Any]:
         """Postprocess predictions."""
-        class_names = {
-            0: 'Grade 0: Healthy knee',
-            1: 'Grade 1 (Doubtful): Doubtful joint narrowing with possible osteophytic lipping',
-            2: 'Grade 2 (Minimal): Definite presence of osteophytes and possible joint space narrowing',
-            3: 'Grade 3 (Moderate): Multiple osteophytes, definite joint space narrowing, with mild sclerosis.',
-            4:'Grade 4 (Severe): Large osteophytes, significant joint narrowing, and severe sclerosis.'
-            }
-        pred_class = np.argmax(pred[0], axis=1)[0]
-        confidence = int(np.max(pred[0], axis=1)[0] * 100_00) / 100
-        return {"predicted_class": class_names[pred_class], "confidence": confidence}
-
-
-class LumbarModel(BaseModel):
-    def __init__(self):
-        super().__init__(MODELS_PATHS["Lumbar"])
-
-    def preprocess(self, img_file) -> np.ndarray:
-        """Preprocess an image for the Knee Osteoarthritis Model."""
-        img = Image.open(img_file)
-        img = img.convert("RGB")
-        img = img.resize((224, 224))
-        img = np.array(img, dtype=np.float32) / 255.0
-        img = np.expand_dims(img, axis=0)   # Add batch dimension [None, 224, 224, 3]
-        return img
-
-    def postprocess(self, pred: np.ndarray) -> Dict[str, Any]:
-        """Postprocess predictions."""
-        class_names = {
-            0: 'lsd',
-            1: 'OSF',
-            2: 'spider',
-            3: 'tseg',
-            }
+        class_names = ['Caries', 'Hypodontia', 'Ulcers']
         pred_class = np.argmax(pred[0], axis=1)[0]
         confidence = int(np.max(pred[0], axis=1)[0] * 100_00) / 100
         return {"predicted_class": class_names[pred_class], "confidence": confidence}
@@ -439,3 +407,14 @@ def DentalModel(img_file):
     img_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")  # Encode as base64
 
     return {"detected_image": img_base64}
+
+
+# cls = EyeDiseasesModel()
+
+# img = cls.preprocess(r"./test images/Eye Diseases/CNV.jpeg")
+
+# pred = cls.run_test(img)
+
+# res = cls.postprocess(pred)
+
+# print(res)
