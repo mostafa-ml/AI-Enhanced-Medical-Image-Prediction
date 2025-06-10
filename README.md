@@ -22,7 +22,7 @@ The following models are available for inference through the API:
 - **Kidney Stone Model**: Detects kidney stones from medical CT scans.
 - **Tuberculosis Model**: Identifies tuberculosis from chest X-rays.
 - **Alzheimer Model**: Classifies brain MRI scans to detect the presence of Alzheimer’s disease at various stages.
-- **Eye Diseases Model**: Detect Eye diseases from from retinal fundus images.
+- **Eye Diseases Model**: Detect Eye diseases from retinal fundus images.
 - **Colon Diseases Model**: Detects Colon diseases from Wireless Capsule Endoscopy (WCE) images.
 - **Oral Diseases Model**: Detect Oral diseases from intraoral images.
 - **Dental Anatomy Model**: Detects and classifies individual teeth from teeth images, labeling them according to dental anatomy.
