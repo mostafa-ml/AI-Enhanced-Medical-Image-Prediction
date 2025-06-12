@@ -6,7 +6,7 @@ import os
 
 class MedicalChatbot:
     def __init__(self, api_key=None, model_name="llama3-70b-8192", temperature=0.7, max_chat_history_length=4, vec_db_path="vec_db"):
-        self.client = Groq(api_key="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") # api_key or os.getenv("GROQ_API_KEY")
+        self.client = Groq(api_key="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")
         self.model_name = model_name
         self.temperature = temperature
         self.max_chat_history_length = max_chat_history_length

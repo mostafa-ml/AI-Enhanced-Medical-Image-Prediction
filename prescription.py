@@ -1,8 +1,9 @@
 import torch
 from PIL import Image
 from transformers import TrOCRProcessor, VisionEncoderDecoderModel, AutoTokenizer
+import os
 
-def predict_from_single_image(model_path, image_path, device=None):
+def predict_from_single_image(model_path, img_file, device=None):
     # Set device
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -27,7 +28,7 @@ def predict_from_single_image(model_path, image_path, device=None):
     
     try:
         # Load original image
-        original_image = Image.open(image_path).convert("RGB")
+        original_image = Image.open(img_file).convert("RGB")
         
         # Convert to grayscale and back to RGB (to maintain 3-channel format)
         grayscale_image = original_image.convert("L").convert("RGB")
@@ -52,7 +53,7 @@ def predict_from_single_image(model_path, image_path, device=None):
         return e
 
 def predict(img_file):
-    MODEL_PATH = r"models\prescription_model_weights"
+    MODEL_PATH = os.path.join(os.getcwd(), r"models\prescription_model_weights")
 
     res = predict_from_single_image(MODEL_PATH, img_file)
 
