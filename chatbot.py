@@ -3,9 +3,8 @@ from langchain_community.vectorstores.faiss import FAISS  # Facebook AI Similari
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
 
-
 class MedicalChatbot:
-    def __init__(self, api_key=None, model_name="llama3-70b-8192", temperature=0.7, max_chat_history_length=4, vec_db_path="vec_db"):
+    def __init__(self, api_key=None, model_name="llama3-70b-8192", temperature=0.7, max_chat_history_length=4, vec_db_path=os.path.join(os.getcwd(), "vec_db")):
         self.client = Groq(api_key="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")
         self.model_name = model_name
         self.temperature = temperature
@@ -36,7 +35,23 @@ class MedicalChatbot:
     def get_sys_msg(context):
         """Generate a system message based on retrieved context."""
         if context:
-            return f"You are a personal doctor Assistant who will answer questions about {context}."
+            return f"""
+            You are a medical assistant specialized in the following diseases:
+            - Alzheimer’s Disease
+            - Heart Disease
+            - Brain Tumors
+            - Liver Disease
+            - Diabetes
+            - High Blood Pressure (Hypertension)
+            - Crohn’s Disease
+            - Arthritis
+            - Low Blood Pressure (Hypotension)
+            - Parkinson’s Disease
+
+            For each condition, you are provided with detailed and accurate information about symptoms, diagnosis, stages, treatment options, prevention strategies, and more.
+
+            Use your expertise to answer questions related to: {context}.
+            """
         return None
 
     @staticmethod
